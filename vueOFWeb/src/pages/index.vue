@@ -18,7 +18,7 @@ const loadUser = () => {
   const storeUser = localStorage.getItem("User");
   // console.log(User.value);
   if (storeUser) {
-    // User.value = storeUser;
+    // User.value ` = storeUser;
     console.log(localStorage)
   } else {
     fetchUser();
