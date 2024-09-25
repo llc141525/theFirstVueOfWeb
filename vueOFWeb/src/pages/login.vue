@@ -1,32 +1,60 @@
 <template>
   <!-- <v-main> -->
-  <v-dialog width="800px">
+  <v-dialog width="800px" lazy="true">
     <v-card width="70vw" class="text-center mt-10">
       <v-container grid-list-xs>
         <v-row class="justify-center ma-6"><h1>添加数据</h1></v-row>
         <v-row class="justify-center">
           <v-col cols="7">
-            <v-text-field 
+            <v-text-field
               v-model="name"
               label="name"
               variant="outlined"
-              prefix="string:"
+              prepend-inner-icon="mdi-account"
+              prefix="输入你的名字:"
+              autofocus="true"
+              v-on:click:clear="name = ''"
+              clearable
             ></v-text-field>
           </v-col>
         </v-row>
         <v-row class="justify-center">
           <v-col cols="7">
-            <v-text-field v-model="age" label="age"></v-text-field>
+            <v-text-field
+              v-model="age"
+              label="age"
+              prepend-inner-icon="mdi-cash"
+              variant="outlined"
+              prefix="输入你的年龄:"
+              clearable
+              v-on:click:clear="age = ''"
+            ></v-text-field>
           </v-col>
         </v-row>
         <v-row class="justify-center">
           <v-col cols="7">
-            <v-text-field v-model="salary" label="salary"></v-text-field>
+            <v-text-field
+              v-model="salary"
+              label="salary"
+              variant="outlined"
+              prefix="输入你的薪水:"
+              prepend-inner-icon="mdi-home"
+              clearable
+              v-on:click:clear="salary = ''"
+            ></v-text-field>
           </v-col>
         </v-row>
         <v-row class="justify-center">
           <v-col cols="7">
-            <v-text-field v-model="gender" label="gender"></v-text-field>
+            <v-text-field
+              v-model="gender"
+              label="gender"
+              prepend-inner-icon="mdi-gender-male"
+              variant="outlined"
+              prefix="输入你的性别:"
+              clearable
+              v-on:click:clear="gender = ''"
+            ></v-text-field>
           </v-col>
         </v-row>
         <v-row>
@@ -66,15 +94,15 @@ const postData = async () => {
       salary: salary.value,
       gender: gender.value,
     });
-
-    // console.log("student.value");
-    // console.log(students.value);
   } catch (err) {
     console.log(err);
   }
 };
 function adduser() {
   postData();
-  // console.log(name.value, age.value, salary.value, gender.value);
+  name.value = "";
+  age.value = "";
+  salary.value = "";
+  gender.value = "";
 }
 </script>
