@@ -38,6 +38,18 @@
  
     <v-btn color="primary" @click="toshowLogin"> 添加数据 </v-btn>
   </div>
+
+  <v-container class="pa-md-12">
+    <v-text-field
+      name="name"
+      label="密码"
+      class="mx-auto" 
+      prefix="输入:"     
+      placeholder="xxx-xxx-xxx"
+      variant="outlined"
+      
+    ></v-text-field>
+  </v-container>
 </template>
 
 <script lang="ts" setup>

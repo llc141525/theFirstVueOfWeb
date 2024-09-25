@@ -6,7 +6,12 @@
         <v-row class="justify-center ma-6"><h1>添加数据</h1></v-row>
         <v-row class="justify-center">
           <v-col cols="7">
-            <v-text-field v-model="name" label="name"></v-text-field>
+            <v-text-field 
+              v-model="name"
+              label="name"
+              variant="outlined"
+              prefix="string:"
+            ></v-text-field>
           </v-col>
         </v-row>
         <v-row class="justify-center">
