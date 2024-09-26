@@ -17,14 +17,21 @@
         <td>{{ item.salary }}</td>
         <td>{{ item.gender }}</td>
         <td>
-          <v-btn color="error" @click="del(i + 1)" text="删除我" slim></v-btn>
+          <v-btn
+            color="error"
+            @click="del(i + 1)"
+            text="删除我"
+            slim
+            prepend-icon="mdi-delete"
+          >
+          </v-btn>
         </td>
       </tr>
     </tbody>
   </v-table>
 
   <div>
-    <login v-model="showLogin"> </login>
+    <addElm v-model="showLogin"> </addElm>
   </div>
 
   <div class="text-center mt-9">
@@ -44,18 +51,20 @@
     <v-text-field
       name="name"
       label="密码"
-      class="mx-auto" 
-      prefix="输入:"     
+      class="mx-auto"
+      prefix="输入:"
       placeholder="xxx-xxx-xxx"
       variant="outlined"
-      
+      max-width="400px"
     ></v-text-field>
   </v-container>
+
+
 </template>
 
 <script lang="ts" setup>
 import axios from "axios";
-import login from "./login.vue";
+import addElm from "./addElm.vue";
 import { onMounted, ref } from "vue";
 import { useStudentStore } from "@/stores/student";
 import { storeToRefs } from "pinia";
