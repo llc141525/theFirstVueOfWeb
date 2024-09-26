@@ -23,7 +23,7 @@
             <v-text-field
               v-model="age"
               label="age"
-              prepend-inner-icon="mdi-cash"
+              prepend-inner-icon="mdi-calendar"
               variant="outlined"
               prefix="输入你的年龄:"
               clearable
@@ -38,7 +38,7 @@
               label="salary"
               variant="outlined"
               prefix="输入你的薪水:"
-              prepend-inner-icon="mdi-home"
+              prepend-inner-icon="mdi-paid"
               clearable
               v-on:click:clear="salary = ''"
             ></v-text-field>

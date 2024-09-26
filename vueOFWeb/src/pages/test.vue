@@ -17,7 +17,13 @@
         <td>{{ item.salary }}</td>
         <td>{{ item.gender }}</td>
         <td>
-          <v-btn color="error" @click="del(i + 1)" text="删除我" slim></v-btn>
+          <v-btn
+            color="error"
+            @click="del(i + 1)"
+            text="删除我"
+            slim
+            prepend-icon="mdi-delete"
+          ></v-btn>
         </td>
       </tr>
     </tbody>
@@ -44,13 +50,47 @@
     <v-text-field
       name="name"
       label="密码"
-      class="mx-auto" 
-      prefix="输入:"     
+      class="mx-auto"
+      prefix="输入:"
       placeholder="xxx-xxx-xxx"
       variant="outlined"
-      
     ></v-text-field>
   </v-container>
+
+  <v-container class="pa-md-12">
+    <v-textarea
+      label="输入内容"
+      placeholder="xxxxxx"
+      persistent-placeholder
+      prepend-inner-icon="mdi-account"
+      variant="outlined"
+    >
+    </v-textarea>
+  </v-container>
+  <div>
+    <v-card
+      class="mx-auto mb-n12 d-flex align-center"
+      height="100"
+      max-width="200"
+      color="secondary"
+      elevation="12"
+      style="position: relative; z-index: 1"
+    >
+      <v-card-text class="text-center font-weight-bold text-h2" title>title</v-card-text></v-card
+    >
+    <v-card
+      class="mx-auto pt-12"
+      height="200"
+      max-width="300"
+      color="primary"
+      elevation="5"
+      style="position: relative; z-index: 0"
+    >
+      <v-card-text class="text-center"
+        >This card has negative top margin applied</v-card-text
+      >
+    </v-card>
+  </div>
 </template>
 
 <script lang="ts" setup>
