@@ -64,7 +64,7 @@
 
 <script lang="ts" setup>
 import axios from "axios";
-import addElm from "./addElm.vue";
+import addElm from "@/components/addElm.vue";
 import { onMounted, ref } from "vue";
 import { useStudentStore } from "@/stores/student";
 import { storeToRefs } from "pinia";

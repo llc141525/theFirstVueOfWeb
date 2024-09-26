@@ -38,6 +38,15 @@
       </v-data-table>
     </section>
   </v-container>
+
+  <v-slider
+  label="slider"
+  thumb-label="auto"
+  max="100"
+  min="10"
+  >
+
+  </v-slider>
 </template>
 
 <script setup>
