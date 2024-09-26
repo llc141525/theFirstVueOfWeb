@@ -19,7 +19,7 @@
         A list of all the promotions that are currently running.
       </div>
 
-      <v-data-table
+      <v-data-table  
         class="bg-transparent"
         :headers="headers"
         hide-default-footer

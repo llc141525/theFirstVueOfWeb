@@ -1,65 +1,63 @@
 <template>
   <!-- <v-container> -->
-    <v-dialog width="800" class="mx-auto">
-      <v-card width="70vw" class="text-center mt-10 justify-center">
-        <v-container grid-list-xs>
-          <v-row class="justify-center ma-6"><h1>添加数据</h1></v-row>
-          <v-text-field
-            v-model="name"
-            label="name"
-            variant="outlined"
-            prepend-inner-icon="mdi-account"
-            prefix="输入你的名字:"
-            autofocus
-            v-on:click:clear="name = ''"
-            clearable
-            max-width="500"
-            class="mx-auto"
-          >
-          </v-text-field>
-          <v-text-field
-            v-model="age"
-            label="age"
-            prepend-inner-icon="mdi-calendar"
-            variant="outlined"
-            prefix="输入你的年龄:"
-            clearable
-            v-on:click:clear="age = ''"
-            max-width="500"
-            class="mx-auto"
-          ></v-text-field>
-          <v-text-field
-            v-model="salary"
-            label="salary"
-            variant="outlined"
-            prefix="输入你的薪水:"
-            prepend-inner-icon="mdi-sack"
-            clearable
-            v-on:click:clear="salary = ''"
-            max-width="500"
-            class="mx-auto"
-          ></v-text-field>
+  <v-dialog max-width="800">
+    <v-card class="text-center mt-10 justify-center">
+      <v-container>
+        <v-card-title primary-title class="text-h4 py-4">
+          添加数据
+        </v-card-title>
+        <v-text-field
+          v-model="name"
+          label="name"
+          variant="outlined"
+          prepend-inner-icon="mdi-account"
+          prefix="输入你的名字:"
+          autofocus
+          v-on:click:clear="name = ''"
+          clearable
+          max-width="500"
+          class="mx-auto"
+        >
+        </v-text-field>
+        <v-text-field
+          v-model="age"
+          label="age"
+          prepend-inner-icon="mdi-calendar"
+          variant="outlined"
+          prefix="输入你的年龄:"
+          clearable
+          v-on:click:clear="age = ''"
+          max-width="500"
+          class="mx-auto"
+        ></v-text-field>
+        <v-text-field
+          v-model="salary"
+          label="salary"
+          variant="outlined"
+          prefix="输入你的薪水:"
+          prepend-inner-icon="mdi-sack"
+          clearable
+          v-on:click:clear="salary = ''"
+          max-width="500"
+          class="mx-auto"
+        ></v-text-field>
 
-          <v-text-field
-            v-model="gender"
-            label="gender"
-            prepend-inner-icon="mdi-gender-male"
-            variant="outlined"
-            prefix="输入你的性别:"
-            clearable
-            v-on:click:clear="gender = ''"
-            max-width="500"
-            class="mx-auto"
-          ></v-text-field>
+        <v-text-field
+          v-model="gender"
+          label="gender"
+          prepend-inner-icon="mdi-gender-male"
+          variant="outlined"
+          prefix="输入你的性别:"
+          clearable
+          v-on:click:clear="gender = ''"
+          max-width="500"
+          class="mx-auto"
+        ></v-text-field>
 
-          <v-row class="my-4">
-            <v-col>
-              <v-btn color="success" @click="adduser">添加数据</v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card>
-    </v-dialog>
+        <v-btn color="success" @click="adduser" class="my-4">添加数据</v-btn>
+      </v-container>
+    </v-card>
+  </v-dialog>
   <!-- </v-container> -->
 </template>
 

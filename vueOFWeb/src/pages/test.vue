@@ -1,5 +1,5 @@
 <template class="v-bg">
-  <v-table class="ma-12">
+  <!-- <v-table class="ma-12">
     <thead color="primary">
       <tr>
         <th>id</th>
@@ -28,7 +28,7 @@
         </td>
       </tr>
     </tbody>
-  </v-table>
+  </v-table> -->
 
   <div>
     <addElm v-model="showLogin"> </addElm>
@@ -59,6 +59,12 @@
     ></v-text-field>
   </v-container>
 
+  <v-data-table
+  :headers="headers"
+  :items="students"
+  >
+
+  </v-data-table>
 
 </template>
 
@@ -72,6 +78,15 @@ import { Student } from "@/interface/Student";
 const student = useStudentStore();
 const { students } = storeToRefs(student);
 const showLogin = ref(false);
+
+const headers=[
+  {title: "id", value:"id"},
+  {title: "name", value:"name"},
+  {title: "age", value:"age"},
+  {title: "salary", value:"salary"},
+  {title: "gender", value:"gender"},
+];
+
 
 const fetchData = async () => {
   try {
