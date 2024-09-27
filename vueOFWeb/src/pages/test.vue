@@ -1,34 +1,5 @@
 <template class="v-bg">
-  <!-- <v-table class="ma-12">
-    <thead color="primary">
-      <tr>
-        <th>id</th>
-        <th>name</th>
-        <th>age</th>
-        <th>salary</th>
-        <th>gender</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="(item, i) in students" :key="i">
-        <td>{{ i }}</td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.age }}</td>
-        <td>{{ item.salary }}</td>
-        <td>{{ item.gender }}</td>
-        <td>
-          <v-btn
-            color="error"
-            @click="del(i + 1)"
-            text="删除我"
-            slim
-            prepend-icon="mdi-delete"
-          >
-          </v-btn>
-        </td>
-      </tr>
-    </tbody>
-  </v-table> -->
+  
 
   <div></div>
 
@@ -63,7 +34,7 @@
           >
           </v-btn>
         </v-toolbar>
-        <changeElm v-model="showChange"></changeElm>
+        <changeElm v-model="showChange" :preStu="newStudent"></changeElm>
       </template>
       <template v-slot:item.actions="{ item }">
         <v-icon @click="edit(item)">mdi-pencil</v-icon>
@@ -81,7 +52,7 @@ import { onMounted, ref } from "vue";
 import { useStudentStore } from "@/stores/student";
 import { storeToRefs } from "pinia";
 import { Student } from "@/interface/Student";
-import { it } from "vuetify/locale";
+
 const student = useStudentStore();
 const { students } = storeToRefs(student);
 const showLogin = ref(false);
@@ -95,10 +66,16 @@ const headers = [
   { text: "actions", value: "actions" },
 ];
 
+const newStudent = ref<Student>({
+  name: "",
+  age: 0,
+  salary: 0,
+  gender: "",
+  id: 0,
+});
 function edit(preStu: Student) {
-  console.log(preStu);
+  newStudent.value = preStu;
   showChange.value = !showChange.value;
-  const changeElm = axios.post("http://localhost:8080/api/change", preStu.id)
 }
 const fetchData = async () => {
   try {

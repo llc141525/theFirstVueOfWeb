@@ -4,7 +4,7 @@
     <v-card class="text-center mt-10 justify-center">
       <v-container>
         <v-card-title primary-title class="text-h4 py-4">
-         修改数据
+          修改数据
         </v-card-title>
         <v-text-field
           v-model="name"
@@ -12,7 +12,6 @@
           variant="outlined"
           prepend-inner-icon="mdi-account"
           prefix="输入你的名字:"
-          autofocus
           v-on:click:clear="name = ''"
           clearable
           max-width="500"
@@ -53,48 +52,61 @@
           max-width="500"
           class="mx-auto"
         ></v-text-field>
-
-        <v-btn color="success" @click="adduser" class="my-4">添加数据</v-btn>
+        <v-btn color="success" class="my-4" @click="changeStu">修改数据</v-btn>
       </v-container>
     </v-card>
   </v-dialog>
-  <!-- </v-container> -->
 </template>
 
 <script setup>
 import axios from "axios";
 import { onMounted, ref } from "vue";
 import { useStudentStore } from "@/stores/student";
+// import {Student} from "@/interface/Student";
+
 let name = ref();
 let age = ref();
 let salary = ref();
 let gender = ref();
 
 const student = useStudentStore();
-const postData = async () => {
-  try {
-    const response = axios.post("http://localhost:8080/api/postUser", {
-      age: age.value,
-      gender: gender.value,
-      name: name.value,
-      salary: salary.value,
-    });
 
-    student.addStudent({
-      name: name.value,
-      age: age.value,
-      salary: salary.value,
-      gender: gender.value,
+const props = defineProps({
+  preStu: Object,
+});
+onMounted(() => {
+  name.value = props.preStu.name;
+  age.value = props.preStu.age;
+  salary.value = props.preStu.salary;
+  gender.value = props.preStu.gender;
+});
+
+const fetchData = async () => {
+  try {
+    const res = await axios.get("http://localhost:8080/api/user");
+    student.cleanArry();
+    const studentWithId = res.data.map((item, index) => {
+      return { ...item, id: index + 1 };
     });
+    student.setStudent(studentWithId);
   } catch (err) {
     console.log(err);
   }
 };
-function adduser() {
-  postData();
-  name.value = "";
-  age.value = "";
-  salary.value = "";
-  gender.value = "";
+
+function changeStu() {
+  const chnage = async () => {
+    const res = await axios.put(
+      `http://localhost:8080/api/change/${props.preStu.id}`,
+      {
+        name: name.value,
+        age: age.value,
+        salary: salary.value,
+        gender: gender.value,
+      }
+    );
+    fetchData();
+  };
+  chnage();
 }
 </script>
