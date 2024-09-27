@@ -3,4 +3,5 @@ export interface Student  {
   age: number;
   salary: number;
   gender: string; // 可选属性
+  id : number
 }

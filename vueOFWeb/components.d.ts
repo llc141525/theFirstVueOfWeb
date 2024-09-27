@@ -8,6 +8,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AddElm: typeof import('./src/components/addElm.vue')['default']
+    ChangeElm: typeof import('./src/components/changeElm.vue')['default']
+    copy: typeof import('./src/components/addElm copy.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

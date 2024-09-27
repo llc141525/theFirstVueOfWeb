@@ -30,22 +30,9 @@
     </tbody>
   </v-table> -->
 
-  <div>
-    <addElm v-model="showLogin"> </addElm>
-  </div>
+  <div></div>
 
-  <div class="text-center mt-9">
-    <v-btn
-      color="primary"
-      @click="showLogin = !showLogin"
-      class="text-none"
-      prepend-icon="mdi-plus"
-      slim
-      variant="flat"
-      text="添加数据"
-    >
-    </v-btn>
-  </div>
+  <div class="text-center mt-9"></div>
 
   <v-container class="pa-md-12">
     <v-text-field
@@ -59,47 +46,72 @@
     ></v-text-field>
   </v-container>
 
-  <v-data-table
-  :headers="headers"
-  :items="students"
-  >
-
-  </v-data-table>
-
+  <v-container class="pa-md-12">
+    <v-data-table :headers="headers" :items="students">
+      <template #top>
+        <v-toolbar flat>
+          <v-toolbar-title>my CRUD</v-toolbar-title>
+          <addElm v-model="showLogin"> </addElm>
+          <v-btn
+            color="primary"
+            @click="showLogin = !showLogin"
+            class="text-none mx-4"
+            prepend-icon="mdi-plus"
+            slim
+            variant="flat"
+            text="添加数据"
+          >
+          </v-btn>
+        </v-toolbar>
+        <changeElm v-model="showChange"></changeElm>
+      </template>
+      <template v-slot:item.actions="{ item }">
+        <v-icon @click="edit(item)">mdi-pencil</v-icon>
+        <v-icon @click="del(item.id)">mdi-delete</v-icon>
+      </template>
+    </v-data-table>
+  </v-container>
 </template>
 
 <script lang="ts" setup>
 import axios from "axios";
 import addElm from "@/components/addElm.vue";
+import changeElm from "@/components/changeElm.vue";
 import { onMounted, ref } from "vue";
 import { useStudentStore } from "@/stores/student";
 import { storeToRefs } from "pinia";
 import { Student } from "@/interface/Student";
+import { it } from "vuetify/locale";
 const student = useStudentStore();
 const { students } = storeToRefs(student);
 const showLogin = ref(false);
-
-const headers=[
-  {title: "id", value:"id"},
-  {title: "name", value:"name"},
-  {title: "age", value:"age"},
-  {title: "salary", value:"salary"},
-  {title: "gender", value:"gender"},
+const showChange = ref(false);
+const headers = [
+  { title: "id", value: "id" },
+  { title: "name", value: "name" },
+  { title: "age", value: "age" },
+  { title: "salary", value: "salary" },
+  { title: "gender", value: "gender" },
+  { text: "actions", value: "actions" },
 ];
 
-
+function edit(preStu: Student) {
+  console.log(preStu);
+  showChange.value = !showChange.value;
+  const changeElm = axios.post("http://localhost:8080/api/change", preStu.id)
+}
 const fetchData = async () => {
   try {
     const res = await axios.get("http://localhost:8080/api/user");
     student.cleanArry();
-    res.data.forEach((element: Student) => {
-      student.addStudent(element);
+    const studentWithId = res.data.map((item: Student, index: number) => {
+      return { ...item, id: index + 1 };
     });
+    student.setStudent(studentWithId);
   } catch (err) {
     console.log(err);
   }
 };
-
 function del(i: number) {
   console.log("id is", i);
   const delData = async () => {
