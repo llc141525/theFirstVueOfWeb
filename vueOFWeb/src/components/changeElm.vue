@@ -1,21 +1,23 @@
 <template>
   <!-- <v-container> -->
-  <v-dialog max-width="800">
+  <v-dialog max-width="800" persistent>
     <v-card class="text-center mt-10 justify-center">
-      <v-container>
-        <v-card-title primary-title class="text-h4 py-4">
-          修改数据
-        </v-card-title>
+      <!-- <v-container> -->
+      <v-card-title primary-title class="text-h4 py-6"> 修改数据 </v-card-title>
+
+      <v-card-text>
         <v-text-field
           v-model="name"
           label="name"
           variant="outlined"
           prepend-inner-icon="mdi-account"
-          prefix="输入你的名字:"
+          placeholder="输入你的名字:"
           v-on:click:clear="name = ''"
           clearable
           max-width="500"
           class="mx-auto"
+          color="primary"
+          autofocus
         >
         </v-text-field>
         <v-text-field
@@ -23,44 +25,50 @@
           label="age"
           prepend-inner-icon="mdi-calendar"
           variant="outlined"
-          prefix="输入你的年龄:"
+          placeholder="输入你的年龄:"
           clearable
           v-on:click:clear="age = ''"
           max-width="500"
           class="mx-auto"
+          color="primary"
         ></v-text-field>
         <v-text-field
           v-model="salary"
           label="salary"
           variant="outlined"
-          prefix="输入你的薪水:"
+          placeholder="输入你的薪水:"
           prepend-inner-icon="mdi-sack"
           clearable
+          color="primary"
           v-on:click:clear="salary = ''"
           max-width="500"
           class="mx-auto"
         ></v-text-field>
-
         <v-text-field
           v-model="gender"
           label="gender"
           prepend-inner-icon="mdi-gender-male"
           variant="outlined"
-          prefix="输入你的性别:"
+          placeholder="输入你的性别:"
           clearable
           v-on:click:clear="gender = ''"
           max-width="500"
           class="mx-auto"
+          color="primary"
         ></v-text-field>
-        <v-btn color="success" class="my-4" @click="changeStu">修改数据</v-btn>
-      </v-container>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn text color="null" class="font-weight-light" @click="$emit('close')">关闭窗口</v-btn>
+        <v-btn color="primary" class="my-4" @click="changeStu">修改数据</v-btn>
+      </v-card-actions>
+      <!-- </v-container> -->
     </v-card>
   </v-dialog>
 </template>
 
 <script setup>
 import axios from "axios";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useStudentStore } from "@/stores/student";
 // import {Student} from "@/interface/Student";
 
@@ -69,30 +77,22 @@ let age = ref();
 let salary = ref();
 let gender = ref();
 
-const student = useStudentStore();
-
 const props = defineProps({
   preStu: Object,
-});
-onMounted(() => {
-  name.value = props.preStu.name;
-  age.value = props.preStu.age;
-  salary.value = props.preStu.salary;
-  gender.value = props.preStu.gender;
+  fetchData: Function,
 });
 
-const fetchData = async () => {
-  try {
-    const res = await axios.get("http://localhost:8080/api/user");
-    student.cleanArry();
-    const studentWithId = res.data.map((item, index) => {
-      return { ...item, id: index + 1 };
-    });
-    student.setStudent(studentWithId);
-  } catch (err) {
-    console.log(err);
+watch(
+  () => props.preStu,
+  (newValue) => {
+    if (newValue) {
+      name.value = newValue.name;
+      age.value = newValue.age;
+      salary.value = newValue.salary;
+      gender.value = newValue.gender;
+    }
   }
-};
+);
 
 function changeStu() {
   const chnage = async () => {
@@ -105,7 +105,7 @@ function changeStu() {
         gender: gender.value,
       }
     );
-    fetchData();
+    props.fetchData();
   };
   chnage();
 }

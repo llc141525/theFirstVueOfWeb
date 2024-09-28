@@ -1,10 +1,4 @@
 <template class="v-bg">
-  
-
-  <div></div>
-
-  <div class="text-center mt-9"></div>
-
   <v-container class="pa-md-12">
     <v-text-field
       name="name"
@@ -18,11 +12,13 @@
   </v-container>
 
   <v-container class="pa-md-12">
-    <v-data-table :headers="headers" :items="students">
+    <v-data-table :items="students">
       <template #top>
         <v-toolbar flat>
           <v-toolbar-title>my CRUD</v-toolbar-title>
-          <addElm v-model="showLogin"> </addElm>
+          <addElm v-model="showLogin"
+          @close="showLogin = !showLogin"
+          > </addElm>
           <v-btn
             color="primary"
             @click="showLogin = !showLogin"
@@ -34,11 +30,25 @@
           >
           </v-btn>
         </v-toolbar>
-        <changeElm v-model="showChange" :preStu="newStudent"></changeElm>
+        <changeElm
+          v-model="showChange"
+          :preStu="newStudent"
+          :fetchData="fetchData"
+          @close="showChange = !showChange"
+        ></changeElm>
       </template>
-      <template v-slot:item.actions="{ item }">
-        <v-icon @click="edit(item)">mdi-pencil</v-icon>
-        <v-icon @click="del(item.id)">mdi-delete</v-icon>
+      <template v-slot:item="{ item }">
+        <tr>
+          <td>{{ item.id }}</td>
+          <td>{{ item.age }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.salary }}</td>
+          <td>{{ item.gender }}</td>
+          <td>
+            <v-icon @click="edit(item)">mdi-pencil</v-icon>
+            <v-icon @click="del(item.id)">mdi-delete</v-icon>
+          </td>
+        </tr>
       </template>
     </v-data-table>
   </v-container>

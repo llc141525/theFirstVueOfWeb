@@ -1,22 +1,22 @@
 <template>
   <!-- <v-container> -->
-  <v-dialog max-width="800">
+  <v-dialog max-width="800" persistent>
     <v-card class="text-center mt-10 justify-center">
-      <v-container>
-        <v-card-title primary-title class="text-h4 py-4">
-          添加数据
-        </v-card-title>
+      <v-card-title primary-title class="text-h4 py-4"> 添加数据 </v-card-title>
+
+      <v-card-text>
         <v-text-field
           v-model="name"
           label="name"
           variant="outlined"
           prepend-inner-icon="mdi-account"
-          prefix="输入你的名字:"
+          placeholder="输入你的名字:"
           autofocus
           v-on:click:clear="name = ''"
           clearable
           max-width="500"
           class="mx-auto"
+          color="primary"
         >
         </v-text-field>
         <v-text-field
@@ -24,8 +24,9 @@
           label="age"
           prepend-inner-icon="mdi-calendar"
           variant="outlined"
-          prefix="输入你的年龄:"
+          placeholder="输入你的年龄:"
           clearable
+          color="primary"
           v-on:click:clear="age = ''"
           max-width="500"
           class="mx-auto"
@@ -34,28 +35,32 @@
           v-model="salary"
           label="salary"
           variant="outlined"
-          prefix="输入你的薪水:"
+          placeholder="输入你的薪水:"
           prepend-inner-icon="mdi-sack"
           clearable
           v-on:click:clear="salary = ''"
           max-width="500"
           class="mx-auto"
+          color="primary"
         ></v-text-field>
-
         <v-text-field
+          color="primary"
           v-model="gender"
           label="gender"
           prepend-inner-icon="mdi-gender-male"
           variant="outlined"
-          prefix="输入你的性别:"
+          placeholder="输入你的性别:"
           clearable
           v-on:click:clear="gender = ''"
           max-width="500"
           class="mx-auto"
         ></v-text-field>
+      </v-card-text>
 
-        <v-btn color="success" @click="adduser" class="my-4">添加数据</v-btn>
-      </v-container>
+      <v-card-actions>
+        <v-btn  text class="font-weight-light" color="null" @click="$emit('close')">关闭窗口</v-btn>
+        <v-btn color="primary" @click="adduser" class="my-4">添加数据</v-btn>
+      </v-card-actions>
     </v-card>
   </v-dialog>
   <!-- </v-container> -->
