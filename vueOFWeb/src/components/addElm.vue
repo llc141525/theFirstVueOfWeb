@@ -17,6 +17,7 @@
           max-width="500"
           class="mx-auto"
           color="primary"
+          required
         >
         </v-text-field>
         <v-text-field
@@ -43,23 +44,22 @@
           class="mx-auto"
           color="primary"
         ></v-text-field>
-        <v-text-field
+        <v-select
+          max-width="500"
+          variant="outlined"
+          class="mx-auto"
           color="primary"
+          :items="['男', '女']"
           v-model="gender"
           label="gender"
           prepend-inner-icon="mdi-gender-male"
-          variant="outlined"
-          placeholder="输入你的性别:"
-          clearable
-          v-on:click:clear="gender = ''"
-          max-width="500"
-          class="mx-auto"
-        ></v-text-field>
+        ></v-select>
+
       </v-card-text>
 
       <v-card-actions>
         <v-btn  text class="font-weight-light" color="null" @click="$emit('close')">关闭窗口</v-btn>
-        <v-btn color="primary" @click="adduser" class="my-4">添加数据</v-btn>
+        <v-btn color="primary" @click="adduser " class="my-4">添加数据</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -68,12 +68,14 @@
 
 <script setup>
 import axios from "axios";
-import { onMounted, ref } from "vue";
+import {  ref } from "vue";
 import { useStudentStore } from "@/stores/student";
-let name = ref();
+let name = ref('');
 let age = ref();
 let salary = ref();
 let gender = ref();
+
+const emit = defineEmits(['close'])
 
 const student = useStudentStore();
 const postData = async () => {
@@ -94,12 +96,15 @@ const postData = async () => {
   } catch (err) {
     console.log(err);
   }
+  
 };
 function adduser() {
   postData();
+
   name.value = "";
   age.value = "";
   salary.value = "";
   gender.value = "";
+  emit('close')
 }
 </script>

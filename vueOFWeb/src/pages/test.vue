@@ -1,17 +1,5 @@
 <template class="v-bg">
   <v-container class="pa-md-12">
-    <v-text-field
-      name="name"
-      label="密码"
-      class="mx-auto"
-      prefix="输入:"
-      placeholder="xxx-xxx-xxx"
-      variant="outlined"
-      max-width="400px"
-    ></v-text-field>
-  </v-container>
-
-  <v-container class="pa-md-12">
     <v-data-table :items="students">
       <template #top>
         <v-toolbar flat>
@@ -39,9 +27,8 @@
       </template>
       <template v-slot:item="{ item }">
         <tr>
-          <td>{{ item.id }}</td>
-          <td>{{ item.age }}</td>
           <td>{{ item.name }}</td>
+          <td>{{ item.age }}</td>
           <td>{{ item.salary }}</td>
           <td>{{ item.gender }}</td>
           <td>
@@ -67,15 +54,6 @@ const student = useStudentStore();
 const { students } = storeToRefs(student);
 const showLogin = ref(false);
 const showChange = ref(false);
-const headers = [
-  { title: "id", value: "id" },
-  { title: "name", value: "name" },
-  { title: "age", value: "age" },
-  { title: "salary", value: "salary" },
-  { title: "gender", value: "gender" },
-  { text: "actions", value: "actions" },
-];
-
 const newStudent = ref<Student>({
   name: "",
   age: 0,
@@ -118,42 +96,3 @@ onMounted(() => {
   fetchData();
 });
 </script>
-
-<style scoped>
-.v-bg {
-  filter: blur(56px);
-  pointer-events: none;
-}
-
-.v-bg > div {
-  background: linear-gradient(
-    to bottom right,
-    rgb(var(--v-theme-primary)),
-    rgb(var(--v-theme-error))
-  );
-  z-index: -10;
-  clip-path: polygon(
-    20% 50%,
-    27% 66%,
-    41% 66%,
-    50% 50%,
-    41% 34%,
-    27% 34%,
-    20% 50%,
-    55% 50%,
-    62% 66%,
-    76% 66%,
-    85% 50%,
-    76% 34%,
-    62% 34%,
-    55% 50%,
-    30% 50%,
-    37% 66%,
-    51% 66%,
-    60% 50%,
-    51% 34%,
-    37% 34%,
-    30% 50%
-  );
-}
-</style>

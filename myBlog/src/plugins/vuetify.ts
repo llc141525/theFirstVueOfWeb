@@ -10,10 +10,13 @@ import 'vuetify/styles'
 
 // Composables
 import { createVuetify } from 'vuetify'
+import { md2 } from 'vuetify/blueprints'
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
+
   theme: {
-    defaultTheme: 'dark',
+    defaultTheme: 'light',
   },
+  blueprint: md2,
 })

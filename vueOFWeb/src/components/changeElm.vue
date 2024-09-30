@@ -1,8 +1,6 @@
 <template>
-  <!-- <v-container> -->
   <v-dialog max-width="800" persistent>
     <v-card class="text-center mt-10 justify-center">
-      <!-- <v-container> -->
       <v-card-title primary-title class="text-h4 py-6"> 修改数据 </v-card-title>
 
       <v-card-text>
@@ -44,33 +42,28 @@
           max-width="500"
           class="mx-auto"
         ></v-text-field>
-        <v-text-field
-          v-model="gender"
+        <v-select
           label="gender"
-          prepend-inner-icon="mdi-gender-male"
+          :items="['男', '女']"
+          v-model="gender"
+          autocomplete
           variant="outlined"
-          placeholder="输入你的性别:"
-          clearable
-          v-on:click:clear="gender = ''"
-          max-width="500"
           class="mx-auto"
+          max-width="500"
           color="primary"
-        ></v-text-field>
+        ></v-select>
       </v-card-text>
       <v-card-actions>
         <v-btn text color="null" class="font-weight-light" @click="$emit('close')">关闭窗口</v-btn>
         <v-btn color="primary" class="my-4" @click="changeStu">修改数据</v-btn>
       </v-card-actions>
-      <!-- </v-container> -->
     </v-card>
   </v-dialog>
 </template>
 
 <script setup>
 import axios from "axios";
-import { onMounted, ref, watch } from "vue";
-import { useStudentStore } from "@/stores/student";
-// import {Student} from "@/interface/Student";
+import {  ref, watch } from "vue";
 
 let name = ref();
 let age = ref();
@@ -93,6 +86,7 @@ watch(
     }
   }
 );
+const emit= defineEmits(['close'])
 
 function changeStu() {
   const chnage = async () => {
@@ -108,5 +102,6 @@ function changeStu() {
     props.fetchData();
   };
   chnage();
+  emit('close')
 }
 </script>
